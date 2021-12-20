@@ -17,5 +17,5 @@ RUN pip install -r requirements.txt
 
 RUN pip --no-cache-dir install .
 
-ENTRYPOINT ["/usr/local/bin/cert_generator"]
+ENTRYPOINT ["/usr/local/bin/certgenerator"]
 CMD ["--help"]

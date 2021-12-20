@@ -8,9 +8,9 @@ with open("requirements.txt") as requirements_file:
     ]
 
 setup(
-    name="cert_generator",
+    name="certgenerator",
     version="0.0.1",
-    py_modules=["main"],
+    py_modules=["certgenerator"],
     install_requires=requirements,
-    entry_points={"console_scripts": ["cert_generator=main:main"]},
+    entry_points={"console_scripts": ["certgenerator=certgenerator:main"]},
 )
