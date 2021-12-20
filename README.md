@@ -1,12 +1,12 @@
-# cert_generator
+# certgenerator
 
 cli to generate/update TLS secrets for kubernetes service.
 
 # Usage
 
 ```shell
-$ cert_generator --help
-Usage: cert_generator [OPTIONS]
+$ certgenerator --help
+Usage: certgenerator [OPTIONS]
 
   cli to generate/update TLS secrets for kubernetes service.
 
@@ -22,5 +22,5 @@ Options:
 
 - minica
 - Python 3.x
-- PIP
+- pip
 - KUBECONFIG
