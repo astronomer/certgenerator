@@ -5,7 +5,7 @@ RUN apk update && apk add git
 RUN go get github.com/jsha/minica
 
 
-FROM python:3.8.2-alpine
+FROM python:3.8.12-alpine3.15
 
 WORKDIR /certgenerator
 
