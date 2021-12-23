@@ -2,7 +2,6 @@ from unittest.mock import MagicMock
 from certgenerator import *
 import os
 from click.testing import CliRunner
-import json
 
 host = "default.svc.cluster.local"
 secret_name = "sample-pgbouncer-client-certificates"
