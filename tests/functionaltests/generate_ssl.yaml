@@ -1,0 +1,31 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: certgenerator-pgbouncerssl-job
+  namespace: astronomer
+  labels:
+    tier: airflow
+    component: pgbouncer
+    release: certgenerator
+spec:
+  template:
+    metadata:
+      labels:
+        tier: airflow
+        component: pgbouncer
+        release: certgenerator
+    spec:
+      restartPolicy: Never
+      serviceAccountName: certgenerator-pgbouncer-ssl
+      containers:
+        - name: pgbouncercert-genertor
+          image: certgenerator
+          imagePullPolicy: Always
+          args:
+            [
+              "--hostname=astronomer-pgbouncer.astronomer.svc.cluster.local",
+              "--secret-name=certgenerator-pgbouncer-client-certificates",
+              "--namespace=astronomer",
+              "--in-cluster=True",
+            ]

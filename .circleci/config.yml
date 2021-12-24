@@ -36,12 +36,21 @@ jobs:
     steps:
       - trivy-scan:
           image_name: certgenerator
+  functional-test:
+    machine:
+      image: ubuntu-2004:202104-01
+      resource_class: xlarge
+    steps:
+      - functional-test
 
 workflows:
   test:
     jobs:
       - run_pre_commit
       - build
+      - functional-test:
+          requires:
+            - build
       - scan-trivy:
           requires:
             - build
@@ -53,6 +62,22 @@ executors:
     docker:
       - image: circleci/python:3
 commands:
+  functional-test:
+    description: "Run functional testing for certgenerator"
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Run component test
+          command: |
+            set -xe
+            pyenv global 3.9.4
+            sudo apt-get update
+            sudo apt-get install -y libpq-dev python-dev
+            cd tests/functionaltests
+            pip install -r requirement.txt
+            pytest .
   docker-build:
     description: "Build a Docker image"
     parameters:
