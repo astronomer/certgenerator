@@ -83,7 +83,7 @@ commands:
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
             cd tests/functionaltests
             pip install -r requirement.txt
-            pytest .
+            pytest . -v
   docker-build:
     description: "Build a Docker image"
     parameters:

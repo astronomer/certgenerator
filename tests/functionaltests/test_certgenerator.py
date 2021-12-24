@@ -32,7 +32,6 @@ def test_k8s_pod(kind_cluster):
     time.sleep(60)
     pods = Pod.objects(kind_cluster.api).filter(selector="component=certgenerator")
     for pod in pods:
-        status = Pod.objects(kind_cluster.api).filter(namespace="default").get(name=pod)
         assert "Completed" in pod.obj["status"]["phase"]
 
 
@@ -42,12 +41,6 @@ def test_k8s_tls_secret(kind_cluster):
         selector="component=certgenerator-pgbouncer-client-certificates",
     )
     for secret in secrets:
-        secret_name = (
-            Secret.objects(kind_cluster.api)
-            .filter(namespace="astronomer")
-            .get(name=secret)
-        )
-        print(secret.obj["metadata"]["name"])
         assert (
             "certgenerator-pgbouncer-client-certificates"
             == secret.obj["metadata"]["name"]
