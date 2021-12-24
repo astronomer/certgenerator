@@ -21,7 +21,7 @@ spec:
       containers:
         - name: pgbouncercert-genertor
           image: certgenerator
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           args:
             [
               "--hostname=astronomer-pgbouncer.astronomer.svc.cluster.local",
