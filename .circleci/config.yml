@@ -41,7 +41,8 @@ jobs:
       image: ubuntu-2004:202104-01
       resource_class: xlarge
     steps:
-      - functional-test
+      - functional-test:
+          image_name: certgenerator
 
 workflows:
   test:
