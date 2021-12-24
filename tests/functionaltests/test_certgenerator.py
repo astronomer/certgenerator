@@ -17,7 +17,8 @@ def test_k8s_cluster(kind_cluster):
     print(kind_cluster.kubeconfig_path)
     assert kind_cluster.name == "certgenerator"
 
-@mark.skip(reason="currenly not needed")
+
+@mark.skip(reason="currently not needed")
 def test_k8s_api_version(kind_cluster):
     assert kind_cluster.api.version == ("1", "20")
 
