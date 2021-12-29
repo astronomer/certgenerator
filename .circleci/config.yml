@@ -28,42 +28,42 @@ jobs:
     executor: docker-executor
     steps:
       - docker-build:
-          image_name: certgenerator
+          image_name: ap-certgenerator
           dockerfile: Dockerfile
   scan-trivy:
     docker:
       - image: docker:20.10-git
     steps:
       - trivy-scan:
-          image_name: certgenerator
+          image_name: ap-certgenerator
   docker-push-master:
     executor: docker-executor
     steps:
       - docker-registry-push:
           comma_separated_tags: "master,latest"
-          image_name: certgenerator
+          image_name: ap-certgenerator
   docker-push-branch-tag:
     executor: docker-executor
     steps:
       - docker-registry-push:
           comma_separated_tags: "$CIRCLE_BRANCH"
-          image_name: ap-db-bootstrapper
+          image_name: ap-certgenerator
   functional-test:
     machine:
       image: ubuntu-2004:202104-01
       resource_class: large
     steps:
       - functional-test:
-          image_name: certgenerator
+          image_name: ap-certgenerator
   release:
     executor: docker-executor
     steps:
       - checkout
       - get-next-tag:
-          image_name: certgenerator
+          image_name: ap-certgenerator
       - docker-registry-push:
           comma_separated_tags: "$NEXT_TAG,$CIRCLE_BRANCH"
-          image_name: certgenerator
+          image_name: ap-certgenerator
       # Publish a GitHub release on this repository,
       # automatically generating a change log.
       - publish-github-release
