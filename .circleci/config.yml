@@ -61,7 +61,7 @@ executors:
       GIT_ORG: astronomer
       DOCKER_REPO: astronomerinc
     docker:
-      - image: circleci/python:3
+      - image: circleci/python:3.9
 commands:
   functional-test:
     description: "Run functional testing for certgenerator"
@@ -77,7 +77,6 @@ commands:
           name: Run component test
           command: |
             set -xe
-            pyenv global 3.9.4
             sudo apt-get update
             sudo apt-get install -y libpq-dev python-dev
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
