@@ -36,11 +36,11 @@ jobs:
     steps:
       - trivy-scan:
           image_name: ap-certgenerator
-  docker-push-master:
+  docker-push-main:
     executor: docker-executor
     steps:
       - docker-registry-push:
-          comma_separated_tags: "master,latest"
+          comma_separated_tags: "main,latest"
           image_name: ap-certgenerator
   docker-push-branch-tag:
     executor: docker-executor
@@ -78,7 +78,7 @@ workflows:
       - scan-trivy:
           requires:
             - build
-      - docker-push-master:
+      - docker-push-main:
           context:
             - quay.io
             - docker.io
@@ -87,7 +87,7 @@ workflows:
             - scan-trivy
           filters:
             branches:
-              only: master
+              only: main
       - docker-push-branch-tag:
           context:
             - quay.io
