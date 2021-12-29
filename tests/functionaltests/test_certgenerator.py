@@ -24,7 +24,7 @@ def test_k8s_api_version(kind_cluster):
 
 
 def test_k8s_pod(kind_cluster):
-    kind_cluster.load_docker_image("certgenerator")
+    kind_cluster.load_docker_image("ap-certgenerator")
     time.sleep(60)
     kind_cluster.kubectl("create", "ns", "astronomer")
     kind_cluster.kubectl("apply", "-f", "rbac.yaml")
