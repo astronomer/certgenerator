@@ -271,7 +271,7 @@ commands:
         default: "$NEXT_TAG"
       ghr_version:
         type: string
-        default: "0.1.0"
+        default: "0.14.0"
     steps:
       - run:
           name: Create a release on GitHub
