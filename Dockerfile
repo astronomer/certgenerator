@@ -7,15 +7,26 @@ RUN go get github.com/jsha/minica
 
 FROM python:3.8.12-alpine3.15
 
-WORKDIR /certgenerator
+# Upgrade pip
+RUN pip install --upgrade pip
+
+# Create user and group
+RUN addgroup -g 1000 -S certgenerator  \
+    && adduser -u 1000 -S certgenerator -G certgenerator
+
+USER certgenerator
+WORKDIR /home/certgenerator
 
 COPY --from=builder /go/bin/minica /usr/bin/minica
 
-COPY . .
 
-RUN pip install -r requirements.txt
+COPY --chown=certgenerator:certgenerator . .
 
-RUN pip --no-cache-dir install .
+RUN pip install  --user --no-cache-dir .
+ENV PATH="/home/certgenerator/.local/bin:${PATH}"
 
-ENTRYPOINT ["/usr/local/bin/certgenerator"]
+ENTRYPOINT ["certgenerator"]
 CMD ["--help"]
+
+
+
