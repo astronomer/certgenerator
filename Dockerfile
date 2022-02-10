@@ -7,9 +7,8 @@ RUN go get github.com/jsha/minica
 
 FROM python:3.9-alpine3.15
 
-# fix libexpat
-RUN apk update \
-    && apk add --no-cache  expat
+# upgrade apk packages
+RUN apk upgrade
 
 # Upgrade pip
 RUN pip install --upgrade pip
@@ -18,21 +17,18 @@ RUN pip install --upgrade pip
 RUN addgroup -g 1000 -S certgenerator  \
     && adduser -u 1000 -S certgenerator -G certgenerator
 
-USER certgenerator
-
-WORKDIR /home/certgenerator
+WORKDIR /certgenerator
 
 COPY --from=builder /go/bin/minica /usr/bin/minica
 
 COPY --chown=certgenerator:certgenerator . .
 
-RUN pip install  --user --no-cache-dir .
+RUN pip install --no-cache-dir .
 
-ENV PATH="/home/certgenerator/.local/bin:${PATH}"
+WORKDIR /tmp
+
+USER certgenerator
 
 ENTRYPOINT ["certgenerator"]
 
 CMD ["--help"]
-
-
-
