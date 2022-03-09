@@ -150,6 +150,7 @@ commands:
             pyenv global 3.9.4
             sudo apt-get update
             sudo apt-get install -y libpq-dev python-dev
+            export KUBE_VERSION=<< parameters.kube_version >>
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
             cd tests/functionaltests
             pip install -r requirement.txt

@@ -5,13 +5,12 @@ import operator
 import time
 import os
 
-kind_image_prefix = "kindest/node"
-kube_version = os.getenv("kube_version", "1.21.2")
+KUBE_VERSION = os.getenv("kube_version", "1.21.2")
 
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster(name="certgenerator", image="kindest/node:v" + kube_version)
+    cluster = KindCluster(name="certgenerator", image="kindest/node:v" + KUBE_VERSION)
     cluster.create()
     yield cluster
     cluster.delete()
@@ -19,6 +18,7 @@ def kind_cluster():
 
 def test_k8s_cluster(kind_cluster):
     print(kind_cluster.kubeconfig_path)
+    print(f"k8s api version : {kind_cluster.api.version}")
     assert kind_cluster.name == "certgenerator"
 
 
