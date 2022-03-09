@@ -131,7 +131,7 @@ executors:
       GIT_ORG: astronomer
       DOCKER_REPO: astronomerinc
     docker:
-      - image: circleci/python:3
+      - image: cimg/python:3.9.4
 commands:
   functional-test:
     description: "Run functional testing for certgenerator"
@@ -139,6 +139,9 @@ commands:
       image_name:
         type: string
         default: $CIRCLE_PROJECT_REPONAME
+      kube_version:
+        type: string
+        default: "1.21.2"
     steps:
       - checkout
       - attach_workspace:
