@@ -3,11 +3,15 @@ from pytest import fixture, mark
 from pykube import Pod, Secret
 import operator
 import time
+import os
+
+kind_image_prefix = "kindest/node"
+kube_version = os.getenv("kube_version", "1.21.2")
 
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster("certgenerator")
+    cluster = KindCluster(name="certgenerator", image="kindest/node:v" + kube_version)
     cluster.create()
     yield cluster
     cluster.delete()

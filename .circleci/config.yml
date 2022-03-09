@@ -73,6 +73,9 @@ workflows:
       - run_pre_commit
       - build
       - functional-test:
+          matrix:
+            parameters:
+              kube_version: ["1.19.11", "1.20.7", "1.21.2"]
           requires:
             - build
       - scan-trivy:
