@@ -54,6 +54,9 @@ jobs:
       resource_class: large
     steps:
       - functional-test:
+          parameters:
+            kube_version:
+              type: string
           image_name: ap-certgenerator
   release:
     executor: docker-executor
