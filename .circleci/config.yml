@@ -141,7 +141,6 @@ commands:
         default: $CIRCLE_PROJECT_REPONAME
       kube_version:
         type: string
-        default: "1.21.2"
     steps:
       - checkout
       - attach_workspace:
