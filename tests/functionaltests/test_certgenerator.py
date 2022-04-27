@@ -6,11 +6,11 @@ import time
 import os
 
 KUBE_VERSION = os.getenv("KUBE_VERSION", "1.21.2")
-
+image = f"kindest/node:v{KUBE_VERSION}"
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster(name="certgenerator", image="kindest/node:v" + KUBE_VERSION)
+    cluster = KindCluster(name="certgenerator", image="image")
     cluster.create()
     yield cluster
     cluster.delete()
@@ -18,7 +18,6 @@ def kind_cluster():
 
 def test_k8s_cluster(kind_cluster):
     print(kind_cluster.kubeconfig_path)
-    print(f"k8s api version : {kind_cluster.api.version}")
     assert kind_cluster.name == "certgenerator"
 
 
