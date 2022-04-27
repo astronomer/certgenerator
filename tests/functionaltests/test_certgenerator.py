@@ -1,6 +1,7 @@
 from pytest_kind import KindCluster
 from pytest import fixture, mark
 from pykube import Pod, Secret
+import os
 import operator
 import time
 
