@@ -5,7 +5,7 @@ import operator
 import time
 import os
 
-KUBE_VERSION = os.getenv("kube_version", "1.21.2")
+KUBE_VERSION = os.getenv("KUBE_VERSION", "1.21.2")
 
 
 @fixture(scope="session")
