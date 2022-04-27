@@ -4,10 +4,12 @@ from pykube import Pod, Secret
 import operator
 import time
 
+KUBE_VERSION = os.getenv("KUBE_VERSION", "1.21.2")
+image = f"kindest/node:v{KUBE_VERSION}"
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster("certgenerator")
+    cluster = KindCluster(name="certgenerator", image=image)
     cluster.create()
     yield cluster
     cluster.delete()
