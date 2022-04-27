@@ -10,7 +10,7 @@ image = f"kindest/node:v{KUBE_VERSION}"
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster(name="certgenerator", image="image")
+    cluster = KindCluster(name="certgenerator", image=image)
     cluster.create()
     yield cluster
     cluster.delete()
