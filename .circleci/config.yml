@@ -59,6 +59,7 @@ jobs:
     steps:
       - functional-test:
           image_name: ap-certgenerator
+          kube_version: << parameters.kube_version >>
   release:
     executor: docker-executor
     steps:
