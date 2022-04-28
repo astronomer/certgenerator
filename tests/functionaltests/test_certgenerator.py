@@ -1,14 +1,26 @@
 from pytest_kind import KindCluster
 from pytest import fixture, mark
 from pykube import Pod, Secret
+import os
 import operator
 import time
+
+KUBE_VERSION = os.getenv("KUBE_VERSION", "1.21.2")
+IMAGE = f"kindest/node:v{KUBE_VERSION}"
+KIND_VERSION = "v0.12.0"
+KUBECTL_VERSION = "v1.21.2"
 
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster("certgenerator")
+    cluster = KindCluster(
+        name="certgenerator",
+        image=IMAGE,
+        kind_version=KIND_VERSION,
+        kubectl_version=KUBECTL_VERSION,
+    )
     cluster.create()
+
     yield cluster
     cluster.delete()
 
