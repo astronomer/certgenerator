@@ -6,16 +6,18 @@ import operator
 import time
 
 KUBE_VERSION = os.getenv("KUBE_VERSION", "1.21.2")
-image = f"kindest/node:v{KUBE_VERSION}"
+IMAGE = f"kindest/node:v{KUBE_VERSION}"
+KIND_VERSION = "v0.12.0"
+KUBECTL_VERSION = "v1.21.2"
 
 
 @fixture(scope="session")
 def kind_cluster():
     cluster = KindCluster(
         name="certgenerator",
-        image=image,
-        kind_version="v0.12.0",
-        kubectl_version="v1.21.2",
+        image=IMAGE,
+        kind_version=KIND_VERSION,
+        kubectl_version=KUBECTL_VERSION,
     )
     cluster.create()
 
