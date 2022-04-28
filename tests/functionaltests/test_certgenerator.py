@@ -11,8 +11,14 @@ image = f"kindest/node:v{KUBE_VERSION}"
 
 @fixture(scope="session")
 def kind_cluster():
-    cluster = KindCluster(name="certgenerator", image=image)
+    cluster = KindCluster(
+        name="certgenerator",
+        image=image,
+        kind_version="v0.12.0",
+        kubectl_version="v1.21.2",
+    )
     cluster.create()
+
     yield cluster
     cluster.delete()
 
