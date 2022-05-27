@@ -52,9 +52,14 @@ jobs:
     machine:
       image: ubuntu-2004:202104-01
       resource_class: large
+    parameters:
+      kube_version:
+        type: string
+        default: "1.23.4"
     steps:
       - functional-test:
           image_name: ap-certgenerator
+          kube_version: << parameters.kube_version >>
   release:
     executor: docker-executor
     steps:
@@ -73,6 +78,9 @@ workflows:
       - run_pre_commit
       - build
       - functional-test:
+          matrix:
+            parameters:
+              kube_version: ["1.19.16", "1.20.15", "1.21.10", "1.22.7", "1.23.4"]
           requires:
             - build
       - scan-trivy:
@@ -124,7 +132,7 @@ executors:
       GIT_ORG: astronomer
       DOCKER_REPO: astronomerinc
     docker:
-      - image: cimg/python:3.9.4
+      - image: circleci/python:3
 commands:
   functional-test:
     description: "Run functional testing for certgenerator"
@@ -132,6 +140,8 @@ commands:
       image_name:
         type: string
         default: $CIRCLE_PROJECT_REPONAME
+      kube_version:
+        type: string
     steps:
       - checkout
       - attach_workspace:
@@ -143,6 +153,7 @@ commands:
             pyenv global 3.9.4
             sudo apt-get update
             sudo apt-get install -y libpq-dev python-dev
+            export KUBE_VERSION=<< parameters.kube_version >>
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
             cd tests/functionaltests
             pip install -r requirement.txt
