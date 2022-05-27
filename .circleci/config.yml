@@ -80,7 +80,7 @@ workflows:
       - functional-test:
           matrix:
             parameters:
-              kube_version: ["1.19.16", "1.20.15", "1.21.10", "1.22.7","1.23.4"]
+              kube_version: ["1.19.16", "1.20.15", "1.21.10", "1.22.7", "1.23.4"]
           requires:
             - build
       - scan-trivy:
