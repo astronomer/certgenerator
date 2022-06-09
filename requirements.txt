@@ -1,6 +1,6 @@
 cachetools==4.2.4
 certifi==2022.5.18.1
-charset-normalizer==2.0.7
+charset-normalizer==2.0.12
 click==8.1.2
 google-auth==2.6.0
 idna==3.3
