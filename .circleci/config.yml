@@ -77,15 +77,15 @@ workflows:
     jobs:
       - run_pre_commit
       - build
+      - scan-trivy:
+          requires:
+            - build
       - functional-test:
           matrix:
             parameters:
               kube_version: ["1.21.14", "1.22.15", "1.23.13", "1.24.7", "1.25.3"]
           requires:
-            - build
-      - scan-trivy:
-          requires:
-            - build
+            - scan-trivy
       - docker-push-main:
           context:
             - quay.io
