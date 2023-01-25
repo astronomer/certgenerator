@@ -226,7 +226,7 @@ commands:
       - run:
           name: Scan the local image with trivy
           command: |
-            trivy --cache-dir /tmp/workspace/trivy-cache image --ignore-unfixed -s HIGH,CRITICAL --exit-code 1 --no-progress << parameters.image_name >>
+            trivy --cache-dir /tmp/workspace/trivy-cache image --ignore-unfixed -s HIGH,CRITICAL --ignorefile .trivyignore --exit-code 1 --no-progress << parameters.image_name >>
       - save_cache:
           key: trivy-cache
           paths:
