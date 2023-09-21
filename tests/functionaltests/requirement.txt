@@ -1,4 +1,4 @@
 pytest==7.1.2
-pytest-kind==22.8.0
+pytest-kind==22.11.1
 pykube==0.15.0
 pykube-ng==22.7.0
