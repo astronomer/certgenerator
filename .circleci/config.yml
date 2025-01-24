@@ -31,8 +31,6 @@ jobs:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
   scan-trivy:
-    docker:
-      - image: docker:20.10-git
     steps:
       - trivy-scan:
           image_name: ap-certgenerator
