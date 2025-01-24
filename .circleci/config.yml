@@ -50,7 +50,7 @@ jobs:
           image_name: ap-certgenerator
   functional-test:
     docker:
-      - image: cimg/python:3
+      - image: cimg/python:3.13.1
     resource_class: large
     parameters:
       kube_version:
@@ -150,7 +150,7 @@ commands:
           name: Run component test
           command: |
             set -xe
-            pyenv global 3.9.4
+            #pyenv global 3.13.1
             sudo apt-get update
             sudo apt-get install -y libpq-dev python-dev
             export KUBE_VERSION=<< parameters.kube_version >>
