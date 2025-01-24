@@ -49,9 +49,9 @@ jobs:
           comma_separated_tags: "$CIRCLE_BRANCH"
           image_name: ap-certgenerator
   functional-test:
-    machine:
-      image: ubuntu-2204:2024.05.1
-      resource_class: large
+    docker:
+      - image: cimg/python:3
+    resource_class: large
     parameters:
       kube_version:
         type: string
