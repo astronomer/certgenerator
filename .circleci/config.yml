@@ -144,6 +144,8 @@ commands:
         type: string
     steps:
       - checkout
+      - setup_remote_docker:
+          version: docker23
       - attach_workspace:
           at: /tmp/workspace
       - run:
