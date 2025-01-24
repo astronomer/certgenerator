@@ -50,7 +50,7 @@ jobs:
           image_name: ap-certgenerator
   functional-test:
     machine:
-      image: ubuntu-2004:202104-01
+      image: default
       resource_class: large
     parameters:
       kube_version:
