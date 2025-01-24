@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   run_pre_commit:
     docker:
-      - image: quay.io/astronomer/ci-pre-commit:2023-09
+      - image: quay.io/astronomer/ci-pre-commit:2025-01
     steps:
       - checkout
       - run:
@@ -32,7 +32,7 @@ jobs:
           dockerfile: Dockerfile
   scan-trivy:
     docker:
-      - image: docker:20.10-git
+      - image: docker:23.0.6-git
     steps:
       - trivy-scan:
           image_name: ap-certgenerator
@@ -174,7 +174,7 @@ commands:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-          version: 20.10.2
+          version: docker23
       - run:
           name: Build the Docker image
           command: |
@@ -209,7 +209,7 @@ commands:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.2
+          version: docker23
       - attach_workspace:
           at: /tmp/workspace
       - run:
