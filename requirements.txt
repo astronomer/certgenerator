@@ -2,7 +2,7 @@ cachetools==5.5.1
 certifi==2024.6.2
 charset-normalizer==3.3.2
 click==8.1.7
-idna==3.7
+idna==3.10
 kubernetes==31.0.0
 pyasn1==0.6.0
 pyasn1-modules==0.4.1
