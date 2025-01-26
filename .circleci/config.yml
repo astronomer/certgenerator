@@ -1,5 +1,14 @@
 ---
 version: 2.1
+executors:
+  docker-executor:
+    environment:
+      GIT_ORG: astronomer
+      DOCKER_REPO: astronomerinc
+    docker:
+      - image: cimg/python:3.10
+
+
 jobs:
   run_pre_commit:
     docker:
@@ -31,8 +40,7 @@ jobs:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
   scan-trivy:
-    docker:
-      - image: docker:20.10-git
+    executor: docker-executor
     steps:
       - trivy-scan:
           image_name: ap-certgenerator
@@ -126,13 +134,7 @@ workflows:
             branches:
               only:
                 - '/release-0\.\d+/'
-executors:
-  docker-executor:
-    environment:
-      GIT_ORG: astronomer
-      DOCKER_REPO: astronomerinc
-    docker:
-      - image: circleci/python:3
+
 commands:
   functional-test:
     description: "Run functional testing for certgenerator"
@@ -146,6 +148,8 @@ commands:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           name: Run component test
           command: |
@@ -209,7 +213,7 @@ commands:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.2
+          docker_layer_caching: true
       - attach_workspace:
           at: /tmp/workspace
       - run:
@@ -247,7 +251,7 @@ commands:
       - attach_workspace:
           at: /tmp/workspace
       - setup_remote_docker:
-          version: 20.10.2
+          docker_layer_caching: true
       - run:
           name: Load archived Docker image
           command: docker load -i /tmp/workspace/<< parameters.image_name >>.tar
