@@ -32,7 +32,7 @@ jobs:
           dockerfile: Dockerfile
   scan-trivy:
     docker:
-      - image: docker:23.0.6-git
+      - image: docker:20.10-git
     steps:
       - trivy-scan:
           image_name: ap-certgenerator
@@ -49,9 +49,9 @@ jobs:
           comma_separated_tags: "$CIRCLE_BRANCH"
           image_name: ap-certgenerator
   functional-test:
-    docker:
-      - image: cimg/python:3.13.1
-    resource_class: large
+    machine:
+      image: ubuntu-2004:202104-01
+      resource_class: large
     parameters:
       kube_version:
         type: string
@@ -144,18 +144,15 @@ commands:
         type: string
     steps:
       - checkout
-      - setup_remote_docker:
-          version: docker23
       - attach_workspace:
           at: /tmp/workspace
       - run:
           name: Run component test
           command: |
             set -xe
-            #pyenv global 3.13.1
-            #sudo apt-get update
-            #sudo apt-get install -y libpq-dev python-dev
-            sudo apt-get install -y libpq-dev
+            pyenv global 3.9.4
+            sudo apt-get update
+            sudo apt-get install -y libpq-dev python-dev
             export KUBE_VERSION=<< parameters.kube_version >>
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
             cd tests/functionaltests
@@ -177,7 +174,7 @@ commands:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-          version: docker23
+          version: 20.10.2
       - run:
           name: Build the Docker image
           command: |
@@ -212,7 +209,7 @@ commands:
     steps:
       - checkout
       - setup_remote_docker:
-          version: docker23
+          version: 20.10.2
       - attach_workspace:
           at: /tmp/workspace
       - run:
