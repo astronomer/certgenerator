@@ -178,7 +178,6 @@ commands:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-          version: 20.10.2
       - run:
           name: Build the Docker image
           command: |
