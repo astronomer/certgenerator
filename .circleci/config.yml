@@ -151,9 +151,8 @@ commands:
           name: Run component test
           command: |
             set -xe
-            #pyenv global 3.9.4
             sudo apt-get update
-            sudo apt-get install -y libpq-dev python-dev
+            sudo apt-get install -y libpq-dev
             export KUBE_VERSION=<< parameters.kube_version >>
             docker load -i "/tmp/workspace/<< parameters.image_name >>.tar"
             cd tests/functionaltests
