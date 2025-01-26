@@ -217,7 +217,6 @@ commands:
       - run:
           name: Install trivy
           command: |
-            apk add --update-cache --upgrade curl rpm
             curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
       - restore_cache:
           keys:
