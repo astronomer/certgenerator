@@ -53,7 +53,7 @@ jobs:
     executor: docker-executor
     steps:
       - docker-registry-push:
-          comma_separated_tags: "$CIRCLE_BRANCH"
+          comma_separated_tags: "main,latest,$CIRCLE_BRANCH"
           image_name: ap-certgenerator
   functional-test:
     machine:
