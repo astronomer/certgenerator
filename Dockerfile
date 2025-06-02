@@ -5,7 +5,7 @@ RUN apk update && apk add git
 RUN go get github.com/jsha/minica
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM python:3.9.19-alpine3.20
+FROM python:3.9.22-alpine3.22
 
 # upgrade apk packages
 RUN apk upgrade
