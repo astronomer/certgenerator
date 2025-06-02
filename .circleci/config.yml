@@ -62,7 +62,7 @@ jobs:
     parameters:
       kube_version:
         type: string
-        default: "1.23.13"
+        default: "1.30.13"
     steps:
       - functional-test:
           image_name: ap-certgenerator
@@ -87,7 +87,7 @@ workflows:
       - functional-test:
           matrix:
             parameters:
-              kube_version: ["1.25.16", "1.26.15", "1.27.13", "1.28.9", "1.29.4", "1.30.0"]
+              kube_version: ["1.30.13", "1.31.9", "1.32.5", "1.33.1"]
           requires:
             - build
       - scan-trivy:
