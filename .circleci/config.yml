@@ -53,7 +53,7 @@ jobs:
     executor: docker-executor
     steps:
       - docker-registry-push:
-          comma_separated_tags: "main,latest,$CIRCLE_BRANCH"
+          comma_separated_tags: "$CIRCLE_BRANCH"
           image_name: ap-certgenerator
   functional-test:
     machine:
@@ -250,28 +250,15 @@ commands:
           name: Load archived Docker image
           command: docker load -i /tmp/workspace/<< parameters.image_name >>.tar
       - run:
-          name: "Login to docker registries"
+          name: Login to Docker Hub
           command: |
             echo "$DOCKER_PASSWORD" | docker login --username $DOCKER_USERNAME --password-stdin docker.io
-            echo "$QUAY_PASSWORD" | docker login --username $QUAY_USERNAME --password-stdin quay.io
+      - run:
+          name: Login to Quay.io
+          command: echo "$QUAY_PASSWORD" | docker login --username "$QUAY_USERNAME" --password-stdin quay.io
       - run:
           name: Push Docker image(s)
-          command: |
-            set -e
-            for tag in $(echo "<< parameters.comma_separated_tags >>" | sed "s/,/ /g");
-            do
-              set -x
-              # If the tag looks starts with "v" then a digit, remove the "v"
-              pattern="^(v[0-9].*)"
-              if [[ $tag =~ $pattern ]]; then
-                tag="${tag:1}"
-              fi
-              docker tag << parameters.image_name >> docker.io/astronomerinc/<< parameters.image_name >>:${tag}
-              docker tag << parameters.image_name >> quay.io/astronomer/<< parameters.image_name >>:${tag}
-            done
-            docker push quay.io/astronomer/<< parameters.image_name >>
-            docker push docker.io/astronomerinc/<< parameters.image_name >>
-            set +x
+          command: bin/tag-and-push.sh << parameters.image_name >> << parameters.comma_separated_tags >>
   publish-github-release:
     description: "Create a release on GitHub"
     parameters:
