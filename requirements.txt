@@ -1,6 +1,6 @@
 cachetools==6.0.0
 certifi==2025.4.26
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
 click==8.1.8
 idna==3.10
 kubernetes==32.0.1
