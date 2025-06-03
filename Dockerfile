@@ -1,11 +1,11 @@
-FROM golang:1.14-alpine AS builder
+FROM golang:1.15-alpine AS builder
 
 RUN apk update && apk add git
 
 RUN go get github.com/jsha/minica
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM python:3.9.22-alpine3.22
+FROM python:3.10.17-alpine3.22
 
 # upgrade apk packages
 RUN apk upgrade
