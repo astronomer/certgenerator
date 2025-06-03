@@ -63,6 +63,8 @@ jobs:
       kube_version:
         type: string
         default: "1.23.13"
+    environment:
+      KIND_VERSION: v0.29.0
     steps:
       - functional-test:
           image_name: ap-certgenerator
@@ -145,8 +147,6 @@ commands:
       image_name:
         type: string
         default: $CIRCLE_PROJECT_REPONAME
-      environment:
-        KIND_VERSION: v0.29.0
       kube_version:
         type: string
     steps:
