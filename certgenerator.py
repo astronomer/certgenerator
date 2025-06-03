@@ -1,6 +1,7 @@
 """
 Generate SSL for pgbouncer service
 """
+
 import os
 import click
 import logging
