@@ -1,0 +1,4 @@
+pytest
+pytest-kind
+pykube
+pykube-ng

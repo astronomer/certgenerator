@@ -5,10 +5,10 @@ import os
 import operator
 import time
 
-KUBE_VERSION = os.getenv("KUBE_VERSION", "1.25.16")
+KUBE_VERSION = os.getenv("KUBE_VERSION", "1.31.6")
 IMAGE = f"kindest/node:v{KUBE_VERSION}"
-KIND_VERSION = os.getenv("KIND_VERSION", "v0.23.0")
-KUBECTL_VERSION = os.getenv("KUBECTL_VERSION", "v1.25.16")
+KIND_VERSION = os.getenv("KIND_VERSION", "v0.29.0")
+KUBECTL_VERSION = os.getenv("KUBECTL_VERSION", "v1.31.6")
 
 
 @fixture(scope="session")

@@ -11,7 +11,7 @@ executors:
 jobs:
   run_pre_commit:
     docker:
-      - image: quay.io/astronomer/ci-pre-commit:2025-01
+      - image: quay.io/astronomer/ci-pre-commit:2025-06
     steps:
       - checkout
       - run:
@@ -63,6 +63,8 @@ jobs:
       kube_version:
         type: string
         default: "1.23.13"
+    environment:
+      KIND_VERSION: v0.29.0
     steps:
       - functional-test:
           image_name: ap-certgenerator
@@ -87,7 +89,11 @@ workflows:
       - functional-test:
           matrix:
             parameters:
-              kube_version: ["1.25.16", "1.26.15", "1.27.13", "1.28.9", "1.29.4", "1.30.0"]
+              kube_version:
+                - 1.29.14
+                - 1.30.10
+                - 1.31.6
+                - 1.32.2
           requires:
             - build
       - scan-trivy:

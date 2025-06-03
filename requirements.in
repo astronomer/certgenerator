@@ -1,0 +1,17 @@
+cachetools
+certifi
+charset-normalizer
+click
+idna
+kubernetes
+pyasn1
+pyasn1-modules
+python-dateutil
+PyYAML
+requests
+requests-oauthlib
+rsa
+setuptools
+six
+urllib3
+websocket-client
