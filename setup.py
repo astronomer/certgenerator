@@ -9,7 +9,7 @@ with open("requirements.txt") as requirements_file:
 
 setup(
     name="certgenerator",
-    version="0.0.1",
+    version="0.1.9",
     py_modules=["certgenerator"],
     install_requires=requirements,
     entry_points={"console_scripts": ["certgenerator=certgenerator:main"]},
