@@ -1,9 +1,3 @@
-FROM golang:1.15-alpine AS builder
-
-RUN apk update && apk add git
-
-RUN go get github.com/jsha/minica
-
 # check latest tags from https://hub.docker.com/_/python/tags
 FROM python:3.10.17-alpine3.22
 
@@ -19,7 +13,11 @@ RUN addgroup -g 1000 -S certgenerator  \
 
 WORKDIR /certgenerator
 
-COPY --from=builder /go/bin/minica /usr/bin/minica
+ENV MINICA_VERSION=v1.1.0
+
+RUN wget https://github.com/astronomer/minica/releases/download/$MINICA_VERSION/minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
+	&& tar -C /usr/bin/ -xzvf minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
+	&& rm minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz
 
 COPY --chown=certgenerator:certgenerator . .
 
