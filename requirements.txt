@@ -4,7 +4,7 @@ cachetools==6.0.0
     # via
     #   -r requirements.in
     #   google-auth
-certifi==2025.4.26
+certifi==2025.6.15
     # via
     #   -r requirements.in
     #   kubernetes
@@ -13,7 +13,7 @@ charset-normalizer==3.4.2
     # via
     #   -r requirements.in
     #   requests
-click==8.2.1
+click==8.1.8
     # via -r requirements.in
 durationpy==0.10
     # via kubernetes
@@ -59,8 +59,6 @@ rsa==4.9.1
     # via
     #   -r requirements.in
     #   google-auth
-setuptools==80.9.0
-    # via -r requirements.in
 six==1.17.0
     # via
     #   -r requirements.in
