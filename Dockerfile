@@ -21,7 +21,7 @@ RUN pip install --upgrade pip
 
 COPY --from=builder /app/dist/*.whl .
 
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir *.whl
 
 # Create user and group
 RUN addgroup -g 1000 -S certgenerator  \
