@@ -22,7 +22,6 @@ dependencies = [
     "requests",
     "requests-oauthlib",
     "rsa",
-    "setuptools",
     "six",
     "urllib3",
     "websocket-client",
@@ -32,5 +31,5 @@ dependencies = [
 certgenerator = "certgenerator:main"
 
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=70.0.0"]
 build-backend = "setuptools.build_meta"
