@@ -23,6 +23,8 @@ COPY --from=builder /app/dist/*.whl .
 
 RUN pip install --no-cache-dir *.whl
 
+RUN pip uninstall pip setuptools
+
 # Create user and group
 RUN addgroup -g 1000 -S certgenerator  \
     && adduser -u 1000 -S certgenerator -G certgenerator
