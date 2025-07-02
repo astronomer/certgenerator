@@ -1,0 +1,36 @@
+[project]
+name = "certgenerator"
+version = "0.2.0"
+description = ""
+readme = "README.md"
+authors = [
+    {name = "Vishnu Ram", email = "vishnu@astronomer.io"},
+]
+
+requires-python = ">=3.11"
+dependencies = [
+    "cachetools",
+    "certifi",
+    "charset-normalizer",
+    "click",
+    "idna",
+    "kubernetes",
+    "pyasn1",
+    "pyasn1-modules",
+    "python-dateutil",
+    "PyYAML",
+    "requests",
+    "requests-oauthlib",
+    "rsa",
+    "setuptools",
+    "six",
+    "urllib3",
+    "websocket-client",
+]
+
+[project.scripts]
+certgenerator = "certgenerator:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
