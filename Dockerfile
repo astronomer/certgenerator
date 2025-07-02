@@ -17,13 +17,12 @@ FROM python:3.11.13-alpine3.22
 RUN apk upgrade
 
 # Upgrade pip
-RUN pip install --upgrade pip
 
 COPY --from=builder /app/dist/*.whl .
 
-RUN pip install --no-cache-dir *.whl
-
-RUN pip uninstall -y pip setuptools
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir *.whl && \
+    pip uninstall -y pip setuptools
 
 # Create user and group
 RUN addgroup -g 1000 -S certgenerator  \
