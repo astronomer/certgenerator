@@ -14,7 +14,7 @@ RUN uv build
 FROM python:3.11.13-alpine3.22
 
 # upgrade apk packages
-RUN apk upgrade
+RUN apk upgrade && apk add --upgrade sqlite-libs
 
 # Upgrade pip
 
