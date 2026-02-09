@@ -16,8 +16,10 @@ function docker_tag_exists() {
 function tag_and_push() {
     docker tag "${image_name}" "quay.io/astronomer/${image_name}:$1"
     docker tag "${image_name}" "astronomerinc/${image_name}:$1"
+    docker tag "${image_name}" "astrocrpublic.azurecr.io/astronomer/${image_name}:$1"
     docker push "quay.io/astronomer/${image_name}:$1"
     docker push "astronomerinc/${image_name}:$1"
+    docker push "astrocrpublic.azurecr.io/astronomer/${image_name}:$1"
 }
 
 # Split tag_list by comma

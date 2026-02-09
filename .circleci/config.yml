@@ -11,7 +11,7 @@ executors:
 jobs:
   run_pre_commit:
     docker:
-      - image: quay.io/astronomer/ci-pre-commit:2025-07
+      - image: quay.io/astronomer/ci-pre-commit:2026-02
     steps:
       - checkout
       - run:
@@ -104,6 +104,7 @@ workflows:
           context:
             - quay.io
             - docker.io
+            - azurecr.io
           requires:
             - functional-test
             - scan-trivy
@@ -114,6 +115,7 @@ workflows:
           context:
             - quay.io
             - docker.io
+            - azurecr.io
           requires:
             - functional-test
             - scan-trivy
@@ -130,8 +132,9 @@ workflows:
       - release:
           context:
             - docker.io
-            - github-repo
             - quay.io
+            - azurecr.io
+            - github-repo
           requires:
             - functional-test
             - scan-trivy
@@ -264,6 +267,11 @@ commands:
       - run:
           name: Login to Quay.io
           command: echo "$QUAY_PASSWORD" | docker login --username "$QUAY_USERNAME" --password-stdin quay.io
+      - run:
+          name: Login to Azure ACR
+          command: |
+            echo "$ACR_PUBLIC_PASSWORD" | docker login --username $ACR_PUBLIC_USERNAME --password-stdin astrocrpublic.azurecr.io
+            echo "$ACR_PASSWORD" | docker login --username $ACR_USERNAME --password-stdin astrocr.azurecr.io
       - run:
           name: Push Docker image(s)
           command: bin/tag-and-push.sh << parameters.image_name >> << parameters.comma_separated_tags >>
