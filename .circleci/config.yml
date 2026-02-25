@@ -38,7 +38,7 @@ jobs:
       - docker-build:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
-          context: 
+          context:
             - apc-chainguard-creds
   scan-trivy:
     executor: docker-executor
