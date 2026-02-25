@@ -38,8 +38,6 @@ jobs:
       - docker-build:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
-          context:
-            - apc-chainguard-creds
   scan-trivy:
     executor: docker-executor
     steps:
@@ -88,7 +86,8 @@ workflows:
   test:
     jobs:
       - run_pre_commit
-      - build
+      - build:
+          context: apc-chainguard-creds
       - functional-test:
           matrix:
             parameters:
