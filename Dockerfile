@@ -11,7 +11,7 @@ COPY . .
 RUN uv build
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM python:3.11.13-alpine3.22
+FROM cgr.dev/astronomer.io/python:3.14.3-dev
 
 # upgrade apk packages
 RUN apk upgrade && apk add --upgrade sqlite-libs
