@@ -86,7 +86,8 @@ workflows:
   test:
     jobs:
       - run_pre_commit
-      - build
+      - build:
+          context: apc-chainguard-creds
       - functional-test:
           matrix:
             parameters:
@@ -184,6 +185,10 @@ commands:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - run:
+          name: Login to Chainguard Registry
+          command: |
+            docker login cgr.dev --username "$CHAINGUARD_REGISTRY_USERNAME" --password "$CHAINGUARD_REGISTRY_PASSWORD"
       - run:
           name: Build the Docker image
           command: |

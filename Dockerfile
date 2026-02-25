@@ -11,8 +11,9 @@ COPY . .
 RUN uv build
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM python:3.11.13-alpine3.22
+FROM cgr.dev/astronomer.io/python:3.14.3-dev
 
+USER root
 # upgrade apk packages
 RUN apk upgrade && apk add --upgrade sqlite-libs
 
@@ -30,7 +31,7 @@ RUN addgroup -g 1000 -S certgenerator  \
 
 WORKDIR /certgenerator
 
-ENV MINICA_VERSION=v1.1.1
+ENV MINICA_VERSION=v1.1.2
 
 RUN wget https://github.com/astronomer/minica/releases/download/$MINICA_VERSION/minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
 	&& tar -C /usr/bin/ -xzvf minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
