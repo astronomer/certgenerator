@@ -38,6 +38,8 @@ jobs:
       - docker-build:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
+          context: 
+            - apc-chainguard-creds
   scan-trivy:
     executor: docker-executor
     steps:
@@ -184,6 +186,10 @@ commands:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - run:
+          name: Login to Chainguard Registry
+          command: |
+            docker login cgr.dev --username "$CHAINGUARD_REGISTRY_USERNAME" --password "$CHAINGUARD_REGISTRY_PASSWORD"
       - run:
           name: Build the Docker image
           command: |
