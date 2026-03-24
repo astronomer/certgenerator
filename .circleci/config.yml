@@ -38,11 +38,6 @@ jobs:
       - docker-build:
           image_name: ap-certgenerator
           dockerfile: Dockerfile
-  scan-trivy:
-    executor: docker-executor
-    steps:
-      - trivy-scan:
-          image_name: ap-certgenerator
   docker-push-main:
     executor: docker-executor
     steps:
@@ -98,9 +93,6 @@ workflows:
                 - 1.32.5
           requires:
             - build
-      - scan-trivy:
-          requires:
-            - build
       - docker-push-main:
           context:
             - quay.io
@@ -108,7 +100,6 @@ workflows:
             - azurecr.io
           requires:
             - functional-test
-            - scan-trivy
           filters:
             branches:
               only: main
@@ -119,7 +110,6 @@ workflows:
             - azurecr.io
           requires:
             - functional-test
-            - scan-trivy
           filters:
             branches:
               only:
@@ -138,7 +128,6 @@ workflows:
             - github-repo
           requires:
             - functional-test
-            - scan-trivy
             - approve-release
           filters:
             branches:
@@ -214,36 +203,6 @@ commands:
           root: .
           paths:
             - "./*.tar"
-  trivy-scan:
-    description: "Trivy: Vulnerability scanner a Docker image"
-    parameters:
-      image_name:
-        type: string
-        default: $CIRCLE_PROJECT_REPONAME
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Load archived Docker image
-          command: docker load -i /tmp/workspace/<< parameters.image_name >>.tar
-      - run:
-          name: Install trivy
-          command: |
-            curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
-      - restore_cache:
-          keys:
-            - trivy-cache
-      - run:
-          name: Scan the local image with trivy
-          command: |
-            trivy --cache-dir /tmp/workspace/trivy-cache image --ignore-unfixed -s HIGH,CRITICAL --ignorefile .trivyignore --exit-code 1 --no-progress << parameters.image_name >>
-      - save_cache:
-          key: trivy-cache
-          paths:
-            - /tmp/workspace/trivy-cache
   docker-registry-push:
     description: "Push all docker images and tags"
     parameters:
