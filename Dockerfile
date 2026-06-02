@@ -1,6 +1,6 @@
 # https://hub.docker.com/_/python/tags
 # This should match what is in the second stage docker image
-FROM python:3.11 AS builder
+FROM cgr.dev/astronomer.io/python:3.14.5-dev AS builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY . .
 RUN uv build
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM cgr.dev/astronomer.io/python:3.14.3-dev
+FROM cgr.dev/astronomer.io/python:3.14.5-dev
 
 USER root
 # upgrade apk packages
@@ -31,7 +31,7 @@ RUN addgroup -g 1000 -S certgenerator  \
 
 WORKDIR /certgenerator
 
-ENV MINICA_VERSION=v1.1.2
+ENV MINICA_VERSION=v1.1.3
 
 RUN wget https://github.com/astronomer/minica/releases/download/$MINICA_VERSION/minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
 	&& tar -C /usr/bin/ -xzvf minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
