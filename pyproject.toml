@@ -31,5 +31,5 @@ dependencies = [
 certgenerator = "certgenerator:main"
 
 [build-system]
-requires = ["setuptools>=78.1.1"]
+requires = ["setuptools>=82.0.1"]
 build-backend = "setuptools.build_meta"
