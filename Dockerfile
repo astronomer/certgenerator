@@ -1,6 +1,6 @@
 # https://hub.docker.com/_/python/tags
 # This should match what is in the second stage docker image
-FROM cgr.dev/astronomer.io/python:3.14.5-dev AS builder
+FROM cgr.dev/astronomer.io/python:3.14.6-dev AS builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY . .
 RUN uv build
 
 # check latest tags from https://hub.docker.com/_/python/tags
-FROM cgr.dev/astronomer.io/python:3.14.5-dev
+FROM cgr.dev/astronomer.io/python:3.14.6-dev
 
 USER root
 # upgrade apk packages
