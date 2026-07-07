@@ -31,7 +31,7 @@ RUN addgroup -g 1000 -S certgenerator  \
 
 WORKDIR /certgenerator
 
-ENV MINICA_VERSION=v1.1.3
+ENV MINICA_VERSION=v1.1.4
 
 RUN wget https://github.com/astronomer/minica/releases/download/$MINICA_VERSION/minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
 	&& tar -C /usr/bin/ -xzvf minica-alpine-linux-amd64-$MINICA_VERSION.tar.gz \
