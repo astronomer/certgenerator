@@ -26,6 +26,10 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir *.whl && \
     pip uninstall -y pip setuptools
 
+# uv is only needed at build time and its bundled root store is flagged by the eMudhra scanner, hence removing it.
+RUN apk del uv 2>/dev/null || true; \
+    rm -f /usr/bin/uv /usr/bin/uvx /usr/local/bin/uv /usr/local/bin/uvx
+
 # Create user and group
 RUN addgroup -g 1000 -S certgenerator  \
     && adduser -u 1000 -S certgenerator -G certgenerator
