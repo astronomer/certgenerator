@@ -15,7 +15,8 @@ FROM cgr.dev/astronomer.io/python:3.15.0-dev
 
 USER root
 # upgrade apk packages
-RUN apk upgrade && apk add --upgrade sqlite-libs
+# update-ca-certificates regenerates /etc/ssl/certs/ca-certificates.crt so the patched trust store (PINF-1304) is what gets read
+RUN apk upgrade && apk add --upgrade sqlite-libs ca-certificates && update-ca-certificates
 
 # Upgrade pip
 
