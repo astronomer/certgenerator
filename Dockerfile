@@ -22,9 +22,11 @@ RUN apk upgrade --no-cache && apk add --no-cache --upgrade sqlite-libs ca-certif
 
 COPY --from=builder /app/dist/*.whl .
 
+# The py3-pip-wheel package leaves a pip wheel in /usr/share/python-wheels that vendors an affected certifi (PINF-1304), and nothing here runs ensurepip.
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir *.whl && \
-    pip uninstall -y pip setuptools
+    pip uninstall -y pip setuptools && \
+    rm -f /usr/share/python-wheels/pip-*.whl
 
 # uv is only needed at build time and its bundled root store is flagged by the eMudhra scanner, hence removing it.
 RUN apk del uv 2>/dev/null || true; \
