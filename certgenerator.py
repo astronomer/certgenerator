@@ -12,7 +12,6 @@ import shutil
 from kubernetes import client, config
 import base64
 
-
 # Configure logging. DEBUG level logs includes logging secrets,
 # so it should not be used in production.
 LOG_LEVEL = logging.INFO

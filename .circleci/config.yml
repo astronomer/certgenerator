@@ -11,7 +11,7 @@ executors:
 jobs:
   run_pre_commit:
     docker:
-      - image: quay.io/astronomer/ci-pre-commit:2026-02
+      - image: quay.io/astronomer/ci-pre-commit:2026-10
     steps:
       - checkout
       - run:

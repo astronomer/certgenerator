@@ -2,6 +2,18 @@ version = 1
 revision = 5
 requires-python = ">=3.11"
 
+[options]
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
+exclude-newer-span = "P7D"
+
+[options.exclude-newer-package]
+certifi = "2026-10-23T00:00:00Z"
+conda = "2026-10-23T00:00:00Z"
+grpcio = "2026-10-23T00:00:00Z"
+pip = "2026-10-23T00:00:00Z"
+sigstore = "2026-10-23T00:00:00Z"
+uv = "2026-10-23T00:00:00Z"
+
 [[package]]
 name = "cachetools"
 version = "6.1.0"
@@ -13,7 +25,7 @@ wheels = [
 
 [[package]]
 name = "certgenerator"
-version = "0.2.5"
+version = "0.2.6"
 source = { editable = "." }
 dependencies = [
     { name = "cachetools" },
