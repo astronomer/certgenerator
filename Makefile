@@ -8,4 +8,4 @@ help: ## Print Makefile help
 update-requirements: ## Update requirements in uv.lock, tests/functionaltests/requirement.txt
 	uv lock --upgrade
 	uv pip compile --quiet --upgrade tests/functionaltests/requirement.in --output-file tests/functionaltests/requirement.txt
-	-pre-commit run requirements-txt-fixer --show-diff-on-failure --files tests/functionaltests/requirement.txt
+	-prek run requirements-txt-fixer --show-diff-on-failure --files tests/functionaltests/requirement.txt
